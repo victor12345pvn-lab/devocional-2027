@@ -1,0 +1,15 @@
+{
+  "name": "365 Dias com Maria • Nossa Senhora da Conceição 2027",
+  "short_name": "365 com Maria",
+  "description": "Oração diária com Nossa Senhora da Conceição, com áudio.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fbf6ec",
+  "theme_color": "#14306b",
+  "icons": [
+    { "src": "assets/icones/icone-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icones/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

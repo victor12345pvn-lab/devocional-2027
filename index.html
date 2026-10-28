@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>365 Dias com Maria • Nossa Senhora da Conceição 2027</title>
+  <meta name="description" content="Devocional diário de Nossa Senhora da Conceição: oração, propósito, reflexão, leitura bíblica e áudio para cada dia de 2027.">
+  <meta name="theme-color" content="#14306b">
+  <meta property="og:title" content="365 Dias com Maria • Nossa Senhora da Conceição 2027">
+  <meta property="og:description" content="Leia • Ouça • Reze • Viva. A oração de hoje com Nossa Senhora da Conceição.">
+  <meta property="og:image" content="assets/icones/compartilhar.jpg">
+  <link rel="icon" href="assets/icones/icone-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icones/icone-180.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fundo" aria-hidden="true"></div>
+
+  <main class="pagina" id="pagina">
+    <header class="topo">
+      <p class="selo-projeto"><span class="cruzinha" aria-hidden="true">✦</span> 365 DIAS COM MARIA <span class="cruzinha" aria-hidden="true">✦</span></p>
+      <p class="titulo-projeto">Nossa Senhora da Conceição <span>2027</span></p>
+    </header>
+
+    <div class="aviso" id="aviso" hidden></div>
+
+    <section class="data-bloco" aria-live="polite">
+      <button class="seta" id="btnAnterior" aria-label="Dia anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="data-centro" id="btnCalendario" aria-label="Escolher outra data">
+        <span class="dia-semana" id="diaSemana">—</span>
+        <span class="data-grande" id="dataGrande">Carregando…</span>
+        <span class="trocar-data">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>
+          outras datas
+        </span>
+      </button>
+      <button class="seta" id="btnProximo" aria-label="Próximo dia">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </section>
+
+    <figure class="arte" id="arte">
+      <div class="arco" id="arco">
+        <img id="imgMes" alt="Ilustração de Nossa Senhora do mês" decoding="async">
+        <div class="efeitos" id="efeitos" aria-hidden="true"></div>
+        <div class="medalhao" id="medalhao" hidden aria-hidden="true"></div>
+      </div>
+      <figcaption class="faixa" id="faixa" hidden>
+        <span class="faixa-titulo" id="faixaTitulo"></span>
+        <span class="faixa-tipo" id="faixaTipo"></span>
+      </figcaption>
+      <p class="frase-mes" id="fraseMes"></p>
+    </figure>
+
+    <section class="cartao player" aria-labelledby="tituloOracaoHoje">
+      <p class="rotulo-ouro">Oração de hoje</p>
+      <h1 class="tema" id="tituloOracaoHoje">—</h1>
+      <div class="audio">
+        <button class="play" id="btnPlay" aria-label="Ouvir a oração">
+          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+          <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+        </button>
+        <div class="trilha">
+          <input type="range" id="barra" min="0" max="1000" value="0" step="1" aria-label="Posição do áudio">
+          <div class="tempos"><span id="tempoAtual">0:00</span><span id="estadoAudio">Toque para ouvir</span><span id="tempoTotal">--:--</span></div>
+        </div>
+      </div>
+      <audio id="audio" preload="none"></audio>
+    </section>
+
+    <article class="conteudo">
+      <section class="bloco">
+        <h2><span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c-1.2 2.4-3.6 4.2-3.6 7.2 0 1.6.8 2.8 1.8 3.6L8 21h8l-2.2-7.2c1-.8 1.8-2 1.8-3.6C15.6 7.2 13.2 5.4 12 3z"/></svg></span>Oração do dia</h2>
+        <div class="texto-oracao" id="oracao"></div>
+      </section>
+
+      <section class="bloco">
+        <h2><span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></span>Propósito do dia</h2>
+        <div class="proposito" id="proposito"></div>
+      </section>
+
+      <section class="bloco">
+        <h2><span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 4 5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V5c-3-.5-6 0-8 1.5zM12 6.5v13"/></svg></span>Para refletir</h2>
+        <blockquote class="reflexao" id="reflexao"></blockquote>
+      </section>
+
+      <div class="ornamento" aria-hidden="true">
+        <svg viewBox="0 0 220 24"><path d="M0 12h88M132 12h88"/><path d="M110 3l2.6 6.4L119 12l-6.4 2.6L110 21l-2.6-6.4L101 12l6.4-2.6z"/><circle cx="94" cy="12" r="2"/><circle cx="126" cy="12" r="2"/></svg>
+      </div>
+      <p class="encerramento">Nossa Senhora da Conceição,<br>rogai por nós. Amém.</p>
+
+      <section class="bloco leitura">
+        <h2><span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h11a1.5 1.5 0 0 1 1.5 1.5v15.5H7.5A2 2 0 0 1 5.5 18.5V4a.5.5 0 0 1 .5-.5zM5.5 18.5a2 2 0 0 1 2-2h11M12 7v6M9.5 9.5h5"/></svg></span>Leitura bíblica de hoje</h2>
+        <p class="ref" id="leitura"></p>
+        <p class="ref-extenso" id="leituraExtenso"></p>
+        <p class="ref-tema" id="leituraTema"></p>
+        <p class="dica">Abra a sua Bíblia nesta passagem, leia com calma e deixe a Palavra de Deus falar ao seu coração.</p>
+      </section>
+
+      <div class="acoes">
+        <button class="botao primario" id="btnOuvirNovamente">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></svg>
+          Ouvir novamente
+        </button>
+        <button class="botao secundario" id="btnCompartilhar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/></svg>
+          Compartilhar esta oração
+        </button>
+      </div>
+
+      <nav class="navegacao" aria-label="Navegar entre os dias">
+        <button class="nav-dia" id="navAnterior"><small>‹ Dia anterior</small><span id="navAnteriorTexto"></span></button>
+        <button class="nav-dia direita" id="navProximo"><small>Próximo dia ›</small><span id="navProximoTexto"></span></button>
+      </nav>
+
+      <button class="botao suave" id="btnOutras">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4M8 13h2M12 13h2M16 13h.5M8 16.5h2M12 16.5h2"/></svg>
+        Outras orações do mês
+      </button>
+    </article>
+
+    <footer class="rodape">
+      <p>Leituras indicadas para acompanhamento na Bíblia Sagrada Ave-Maria. Orações e reflexões deste devocional são autorais.</p>
+      <p class="slogan">Leia • Ouça • Reze • Viva</p>
+    </footer>
+  </main>
+
+  <!-- Calendário / outras orações -->
+  <div class="folha-fundo" id="folhaFundo" hidden></div>
+  <section class="folha" id="folha" role="dialog" aria-modal="true" aria-labelledby="folhaTitulo" hidden>
+    <div class="folha-alca" aria-hidden="true"></div>
+    <div class="folha-topo">
+      <button class="seta pequena" id="mesAnterior" aria-label="Mês anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <h2 id="folhaTitulo">Janeiro 2027</h2>
+      <button class="seta pequena" id="mesProximo" aria-label="Próximo mês"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    <div class="grade-semana" aria-hidden="true"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+    <div class="grade" id="grade"></div>
+    <ul class="lista-mes" id="listaMes"></ul>
+    <div class="folha-rodape">
+      <button class="botao suave" id="btnHoje">Voltar para hoje</button>
+      <button class="botao primario" id="btnFecharFolha">Fechar</button>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

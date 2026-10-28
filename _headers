@@ -1,0 +1,17 @@
+/assets/meses/*
+  Cache-Control: public, max-age=604800
+
+/assets/audio/*
+  Cache-Control: public, max-age=604800
+
+/assets/icones/*
+  Cache-Control: public, max-age=2592000
+
+/data/*
+  Cache-Control: public, max-age=300
+
+/sw.js
+  Cache-Control: no-cache
+
+/*
+  X-Content-Type-Options: nosniff
