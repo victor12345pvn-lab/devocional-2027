@@ -1,6 +1,11 @@
 /* ==========================================================
    365 Dias com Maria • Nossa Senhora da Conceição 2027
    ========================================================== */
+/* Fontes no próprio site (sem depender do Google). Licença SIL OFL em assets/fontes. */
+@font-face{font-family:"Cormorant Garamond";src:url("assets/fontes/cormorant.woff2") format("woff2");font-weight:500 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("assets/fontes/cormorant-italic.woff2") format("woff2");font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:"Lora";src:url("assets/fontes/lora.woff2") format("woff2");font-weight:400 600;font-style:normal;font-display:swap}
+@font-face{font-family:"Lora";src:url("assets/fontes/lora-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
 :root{
   --creme:#fbf6ec;
   --papel:#fffdf8;

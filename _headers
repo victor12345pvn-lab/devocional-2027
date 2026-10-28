@@ -4,6 +4,9 @@
 /assets/audio/*
   Cache-Control: public, max-age=604800
 
+/assets/fontes/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /assets/icones/*
   Cache-Control: public, max-age=2592000
 
@@ -14,4 +17,9 @@
   Cache-Control: no-cache
 
 /*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com 'sha256-y8BFglRmcv/RrKgok4Dsh6VLoSpuqPxcUjjTw63nq4c='; style-src 'self' 'sha256-aCTsw8g9bXv3QyUv4b/r9H6QOVm6FGA8/rnt2wYPJbQ='; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; manifest-src 'self'; worker-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests
+  X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
+  Cross-Origin-Opener-Policy: same-origin

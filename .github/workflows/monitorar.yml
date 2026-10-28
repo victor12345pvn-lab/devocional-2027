@@ -1,0 +1,27 @@
+name: Monitorar site no ar
+
+# Verifica o site publicado a cada 6 horas. Se algo falhar, o GitHub envia e-mail ao dono do repositório.
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Página inicial, dados, arte e áudio
+        run: |
+          set -e
+          BASE="https://devocional-2027.pages.dev"
+          for caminho in "/" "/data/mes/12.json" "/assets/meses/dezembro.webp" "/assets/audio/dezembro/08.mp3" "/app.js"; do
+            codigo=$(curl -s -o /dev/null -w "%{http_code}" --retry 3 --retry-delay 10 "$BASE$caminho")
+            echo "$caminho -> $codigo"
+            if [ "$codigo" != "200" ]; then echo "FALHA em $caminho"; exit 1; fi
+          done
+          curl -s "$BASE/" | grep -q "365 DIAS COM MARIA" || { echo "Página sem o conteúdo esperado"; exit 1; }
+          echo "Site funcionando."

@@ -1,7 +1,7 @@
 /* Cache leve para abrir mais rápido em conexões fracas.
    Páginas e dados: busca na internet primeiro (sempre atualizados) e usa o cache só sem conexão.
    Imagens e fontes: usa o cache primeiro.  Áudios não são guardados (economiza espaço do celular). */
-var VERSAO = "devocional-2027-v6";
+var VERSAO = "devocional-2027-v7";
 var BASE = ["./", "index.html", "style.css", "app.js", "manifest.webmanifest", "assets/icones/icone-192.png"];
 
 self.addEventListener("install", function (e) {
