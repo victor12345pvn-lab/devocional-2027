@@ -339,14 +339,20 @@
   function fmt(t) { if (!isFinite(t)) return "--:--"; t = Math.round(t); return Math.floor(t / 60) + ":" + pad(t % 60); }
   function estado(txt) { $("estadoAudio").textContent = txt; }
   function setTocando(sim) { $("btnPlay").classList.toggle("tocando", sim); $("btnPlay").setAttribute("aria-label", sim ? "Pausar" : "Ouvir a oração"); }
+  var limiteCarga = null;
   function prepararAudio(r) {
+    clearTimeout(limiteCarga);
     audio.removeAttribute("src");
-    audio.src = r.audio;
-    audio.preload = "metadata";
+    audio.preload = "none";              // só baixa quando a pessoa tocar no play
     audio.dataset.falhou = "";
+    if (r.tem_audio === false) {
+      audio.dataset.falhou = "1";        // MP3 ainda não publicado: usa a voz do aparelho
+    } else {
+      audio.src = r.audio;
+    }
     $("barra").value = 0; $("barra").style.setProperty("--p", "0%");
     $("tempoAtual").textContent = "0:00"; $("tempoTotal").textContent = "--:--";
-    estado("Toque para ouvir");
+    estado(audio.dataset.falhou ? "Toque para ouvir (voz do aparelho)" : "Toque para ouvir");
     setTocando(false);
   }
   function pararAudio() {
@@ -361,6 +367,13 @@
     if (!audio.paused && !doInicio) { audio.pause(); return; }
     $("btnPlay").classList.add("carregando");
     estado("Carregando…");
+    clearTimeout(limiteCarga);
+    limiteCarga = setTimeout(function () {   // internet muito lenta: não deixa o botão girando para sempre
+      if (audio.paused && $("btnPlay").classList.contains("carregando")) {
+        $("btnPlay").classList.remove("carregando");
+        estado("Conexão lenta • toque de novo");
+      }
+    }, 12000);
     var pr = audio.play();
     if (pr && pr.catch) pr.catch(function (e) {
       $("btnPlay").classList.remove("carregando");
@@ -379,7 +392,7 @@
     estado("Narração do aparelho");
     speechSynthesis.speak(u);
   }
-  audio.addEventListener("playing", function () { $("btnPlay").classList.remove("carregando"); setTocando(true); estado("Ouvindo a oração"); });
+  audio.addEventListener("playing", function () { clearTimeout(limiteCarga); $("btnPlay").classList.remove("carregando"); setTocando(true); estado("Ouvindo a oração"); });
   audio.addEventListener("pause", function () { setTocando(false); if (!audio.ended) estado("Pausado"); });
   audio.addEventListener("ended", function () { setTocando(false); estado("Amém 🙏"); });
   audio.addEventListener("loadedmetadata", function () { $("tempoTotal").textContent = fmt(audio.duration); });
@@ -392,11 +405,11 @@
   });
   audio.addEventListener("error", function () {
     if (!audio.getAttribute("src")) return;
+    clearTimeout(limiteCarga);
     $("btnPlay").classList.remove("carregando");
     audio.dataset.falhou = "1";
     setTocando(false);
-    estado("Áudio em preparação");
-    if (!document.hidden && audio._pediuPlay) falarNoAparelho();
+    estado("Toque para ouvir (voz do aparelho)");
   });
   $("barra").addEventListener("input", function () {
     var v = this.value / 1000;
