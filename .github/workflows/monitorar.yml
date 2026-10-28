@@ -12,16 +12,18 @@ permissions:
 jobs:
   checar:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Página inicial, dados, arte e áudio
         run: |
-          set -e
           BASE="https://devocional-2027.pages.dev"
-          for caminho in "/" "/data/mes/12.json" "/assets/meses/dezembro.webp" "/assets/audio/dezembro/08.mp3" "/app.js"; do
-            codigo=$(curl -s -o /dev/null -w "%{http_code}" --retry 3 --retry-delay 10 "$BASE$caminho")
+          UA="Mozilla/5.0 (monitor devocional-2027)"
+          falhou=0
+          for caminho in "/" "/data/mes/12.json" "/assets/meses/dezembro.webp" "/app.js" "/assets/audio/dezembro/08.mp3"; do
+            codigo=$(curl -s -o /dev/null -w "%{http_code}" -A "$UA" --connect-timeout 10 --max-time 30 -r 0-2047 --retry 2 --retry-delay 5 "$BASE$caminho" || echo "000")
             echo "$caminho -> $codigo"
-            if [ "$codigo" != "200" ]; then echo "FALHA em $caminho"; exit 1; fi
+            case "$codigo" in 200|206) ;; *) echo "FALHA em $caminho"; falhou=1 ;; esac
           done
-          curl -s "$BASE/" | grep -q "365 DIAS COM MARIA" || { echo "Página sem o conteúdo esperado"; exit 1; }
+          if ! curl -s -A "$UA" --max-time 30 "$BASE/" | grep -q "365 DIAS COM MARIA"; then echo "Página sem o conteúdo esperado"; falhou=1; fi
+          if [ "$falhou" = "1" ]; then exit 1; fi
           echo "Site funcionando."
